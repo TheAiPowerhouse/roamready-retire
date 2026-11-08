@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Free Ranger has moved</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://freeranger.app/">
+<link rel="icon" href="/favicon.ico">
+<script>
+  // A normal browser visit (an old link, QR code or email): go straight to the
+  // same page on freeranger.app. Only the old home-screen app, or the retire
+  // worker's ?moved=1 hand-off, stays here to read the instructions.
+  (function () {
+    var standalone =
+      (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
+      window.navigator.standalone === true;
+    var moved = /[?&]moved=1(&|$)/.test(location.search);
+    if (!standalone && !moved) {
+      location.replace("https://freeranger.app" + location.pathname + location.search + location.hash);
+    }
+  })();
+</script>
+<style>
+  :root { --bg: #f5efe0; --card: #fffaf0; --ink: #1f2a24; --muted: #5b6660; --green: #2d4a3e; --amber: #e3a83e; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141a17; --card: #1d2420; --ink: #f2ecdc; --muted: #b9c0ba; --green: #3f6a58; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100dvh; background: var(--bg); color: var(--ink);
+    font: 17px/1.5 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: max(24px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+  }
+  main { width: 100%; max-width: 420px; background: var(--card); border-radius: 20px; padding: 28px 22px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+  img { width: 112px; height: 112px; border-radius: 50%; }
+  h1 { font-size: 26px; margin: 14px 0 6px; }
+  p { margin: 0 0 14px; color: var(--muted); }
+  .btn { display: block; margin: 18px 0 20px; padding: 14px 18px; border-radius: 14px; background: var(--green); color: #fff; font-weight: 600; text-decoration: none; }
+  ol { text-align: left; margin: 0 0 16px; padding-left: 22px; }
+  li { margin: 0 0 8px; }
+  .small { font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <img src="/badge.webp" alt="Free Ranger badge">
+  <h1>Free Ranger has moved</h1>
+  <p>RoamReady is now <strong>Free Ranger</strong>, at freeranger.app. This old home-screen icon no longer updates.</p>
+  <a class="btn" href="https://freeranger.app/auth">Open Free Ranger</a>
+  <ol>
+    <li>Open <strong>freeranger.app</strong> in Safari (iPhone/iPad) or Chrome (Android).</li>
+    <li>Tap <strong>Share → Add to Home Screen</strong> (Android: the menu → <strong>Install app</strong>).</li>
+    <li>Delete this old icon.</li>
+  </ol>
+  <p class="small">Your trips are saved in your account. Sign in once on freeranger.app with your email.</p>
+  <p class="small">Questions: <a href="mailto:hello@freeranger.app">hello@freeranger.app</a></p>
+</main>
+<script>
+  // Belt and braces: if an old service worker is still registered here, remove it.
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      regs.forEach(function (r) { r.unregister(); });
+    }).catch(function () {});
+  }
+  if (window.caches && caches.keys) {
+    caches.keys().then(function (keys) { keys.forEach(function (k) { caches.delete(k); }); }).catch(function () {});
+  }
+</script>
+</body>
+</html>
